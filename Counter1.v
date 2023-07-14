@@ -10,5 +10,5 @@ module counter(o, c, r);
       else
         o_1 <= o;
     end
-  assign o = o_1 + 8'h02;
+  assign o = o_1 + 8'h02;     //Counter with jump of 2 units
 endmodule
