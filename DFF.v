@@ -1,7 +1,8 @@
 //DFF
-module dff(q, c, r, d);
+module dff(q, c, r, d, qb);
   input c, d, r;
   output reg q;
+  output qb;
   always@(posedge c)
     begin
       if(r)
@@ -9,12 +10,14 @@ module dff(q, c, r, d);
       else
         q <= d;
     end
+  assign qb = ~q;
+      
 endmodule
 
 //TB
 module tb;
-  dff ss(q, c, r, d);
-  logic q, c, d, r;
+  dff ss(q, c, r, d, qb);
+  logic q, c, d, r, qb;
   initial
     begin
       c = 1'b0;
