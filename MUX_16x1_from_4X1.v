@@ -9,3 +9,11 @@ module muxer(q, s, i);        //16 to 1 using 4 to 1
   mux a4(a[3], s[1:0] ,i[15:12]);
   mux a5(q, s[3:2], a);
 endmodule
+
+
+module mux(q, s, i);       //4 to 1 mux
+  input [3:0]i;
+  input [1:0]s;
+  output q;
+  assign q = i[s];
+endmodule
