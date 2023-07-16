@@ -1,5 +1,5 @@
 //Asynchronous Counter
-module counter(o, c, r, m);
+module counter(o, c, r, m); 
   input c, r, m;
   output reg [3:0]o;
   always@(posedge c, posedge r)      //Down counter
