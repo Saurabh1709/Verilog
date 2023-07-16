@@ -5,7 +5,7 @@ primitive dff_nedge (q, c, r, d);          //Declaring DFF primitive
   initial q = 0;
   table
         ?       1     ?  :  ?  :  0; 
-        ?      (10)   ?  :  ?  :  -; 
+        ?      (??)   ?  :  ?  :  -; 
     
       (10)      0     1  :  ?  :  1; 
       (10)      0     0  :  ?  :  0; 
