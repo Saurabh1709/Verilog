@@ -11,7 +11,7 @@ module shiftreg(q, i, load, c);
           q[3] <= q[2];
           q[2] <= q[1];
           q[1] <= q[0];
-          q[0] <= q[3];
+          q[0] <= 0;
         end
     end
   
