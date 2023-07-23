@@ -1,7 +1,7 @@
 module sum(o, n);
   output [31:0]o;
   input [31:0]n;
-  assign o=f1(n);
+  assign o=f1(n); 
   
   function [31:0]f0;
     input [31:0]i;
