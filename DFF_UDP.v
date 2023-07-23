@@ -11,6 +11,7 @@ primitive dff_nedge (q, c, r, d);          //Declaring DFF primitive
       (10)      0     0  :  ?  :  0; 
 
       (1x)      0     ?  :  ?  :  -; 
+      (x0)      0     ?  :  ?  :  -; 
     
       (0?)      0     ?  :  ?  :  -; 
       (x1)      0     ?  :  ?  :  -; 
