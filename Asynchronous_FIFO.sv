@@ -1,3 +1,8 @@
+//Asynchronous_FIFO
+
+
+//FIFO
+
 //Write Logic and full condition
 module write_logic(full,wclk,wptr,req_r,wadd, wrst, w_en);
   parameter ADD=3, DATA=8;
@@ -81,7 +86,42 @@ module read_logic(empty,rclk,rptr,req_w,radd, rrst, r_en);
 endmodule
 
 
-//Sync_Read
-
-
 //Sync_write
+module sync_write(req_w, wptr, rclk, rrst);
+  parameter ADD=3;
+  input rclk, rrst;
+  input [ADD:0]wptr;
+  output reg [ADD:0]req_w;
+  reg [ADD:0]temp;
+  always@(posedge rclk, negedge rrst)
+    begin
+      if(~rrst) begin
+        req_w<=0;
+        temp<=0;
+      end
+     else begin
+        req_w<=temp;
+        temp<=wptr;
+     end
+    end
+endmodule
+
+//Sync_read
+module sync_read(req_r, rptr, wclk, wrst);
+  parameter ADD=3;
+  input wclk, wrst;
+  input [ADD:0]rptr;
+  output reg [ADD:0]req_r;
+  reg [ADD:0]temp;
+  always@(posedge wclk, negedge wrst)
+    begin
+      if(~wrst) begin
+        req_r<=0;
+        temp<=0;
+      end
+     else begin
+        req_r<=temp;
+        temp<=rptr;
+     end
+    end
+endmodule
