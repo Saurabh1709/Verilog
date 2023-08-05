@@ -148,3 +148,49 @@ module sync_read(req_r, rptr, wclk, wrst);
      end
     end
 endmodule
+
+
+
+
+
+//TB---------------------------------------------------------------------------------------------------------------------------------------------------
+
+module tb;
+  
+  Asynchronous_FIFO f11(full, empty, wclk, rclk, w_en, r_en, rdata, wdata, wrst, rrst);
+  parameter ADD=3, DATA=8, DEPTH=1<<ADD;
+  logic wrst, rrst, w_en, r_en, wclk, rclk;
+  logic [DATA-1:0]wdata;
+  logic full, empty;
+  logic [DATA-1:0]rdata;
+  
+  always #4 wclk=~wclk;
+  always #8 rclk=~rclk;
+  
+  initial
+    begin
+      wdata=1;
+      wclk=0;
+      rclk=0;
+      wrst=1;
+      r_en=1;
+      w_en=1;
+      rrst=1;
+      #2 wrst=0;
+      rrst=0;
+      #10 wrst=1;
+      rrst=1;
+      repeat(15)
+        begin
+          @(posedge wclk);
+          wdata=$urandom();
+        end
+      
+    end
+  initial
+    begin
+      $dumpfile("dump.vcd");
+      $dumpvars(1);
+      #200 $finish;
+    end
+endmodule
