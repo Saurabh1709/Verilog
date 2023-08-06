@@ -1,12 +1,12 @@
-//Asynchronous_FIFO
 module Asynchronous_FIFO(full, empty, wclk, rclk, w_en, r_en, rdata, wdata, wrst, rrst);
   parameter ADD=3, DATA=8, DEPTH=1<<ADD;
-  input rrst, wrst, rrst, w_en, r_en, wclk, rclk;
+  input wrst, rrst, w_en, r_en, wclk, rclk;
   input [DATA-1:0]wdata;
   output reg full, empty;
   output [DATA-1:0]rdata;
   
   reg [ADD:0]wptr, rptr;
+  reg [ADD:0]req_r, req_w;
   reg [ADD-1:0]wadd, radd;
   reg [DATA-1:0]fifo_mem[0:DEPTH-1];
   
@@ -24,6 +24,7 @@ module Asynchronous_FIFO(full, empty, wclk, rclk, w_en, r_en, rdata, wdata, wrst
     end
   
 endmodule
+
 
 
 //Write Logic and full condition
