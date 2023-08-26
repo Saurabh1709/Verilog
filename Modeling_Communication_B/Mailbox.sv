@@ -5,7 +5,7 @@ class transaction;
     a<40;
     a>0;
   }
-  constraint bb {
+  constraint bb { 
     b<60;
     b>40;
   }
