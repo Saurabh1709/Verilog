@@ -1,4 +1,20 @@
-module serialadder(s, c, a, b, clk, r);
+module s_adder(a, b, sum, carry, clk, rst);
+  input a, b, rst;
+  input clk;
+  output reg sum, carry;
+  always@(posedge clk) begin
+    if(rst==1) begin
+      sum <= 0;
+      carry <= 0;
+    end
+    else begin
+      {carry, sum} = a + b + carry;
+    end
+  end
+endmodule
+
+/*
+module serialadder(s, c, a, b, clk, r);   //Alternate way
   input a, b, r;
   input clk;
   output reg s;
@@ -22,35 +38,34 @@ module serialadder(s, c, a, b, clk, r);
     end
   
 endmodule
+*/
 
 //TB
-module tb;
-  logic s, c, clk, r;
-  logic a, b;
-  serialadder ss(s, c, a, b, clk, r);
+module test;
+  s_adder ss(a, b, sum, carry, clk, rst);
+  bit a, b, rst;
+  bit clk;
+  bit sum, carry;
   
-  initial
-    begin
-      clk = 1'b0;
-      r = 1'b1;
-      #6
-      r = 1'b0;
-      for(int x=0; x<15; x++)
-        begin
-          a = $urandom_range(0, 1);
-          b = $urandom_range(0, 1);
-          #6;
-        end
+  initial clk=0;
+  always #10 clk = ~clk;
+  
+  initial begin
+    rst = 1;
+    @(negedge clk);
+    rst = 0;
+    repeat(20) begin
+      a = $urandom;
+      b = $urandom;
+      @(negedge clk);
     end
-    
-  always #5 clk = ~clk;
+  end
+  
  
-    
-  initial
-    begin
-      $dumpfile("dump.vcd");
-      $dumpvars(1);
-      #100 $finish;
-    end
-
+  initial begin
+    $dumpfile("dump.vcd");
+    $dumpvars(1);
+    #350 $finish;
+  end
+  
 endmodule
